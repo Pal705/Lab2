@@ -77,21 +77,25 @@ public class Taxi {
 		boolean peutEmbarquer = false;
 
 		if (this.place1 == null) {
-			
+
 			peutEmbarquer = true;
 			this.place1 = celuiQuiEmbarque;
-		} else if (this.place2 == null) {
-			peutEmbarquer = true;
-			this.place2 = celuiQuiEmbarque;
+		}
+
+		else {
+
+			if (this.place2 == null) {
+				peutEmbarquer = true;
+				this.place2 = celuiQuiEmbarque;
+			}
+
+			peutEmbarquer = false;
 
 		}
+
 		return peutEmbarquer;
 	}
 
-	
-	
-	
-	
 	void appliqueDepense() {
 
 	}
@@ -105,9 +109,28 @@ public class Taxi {
 
 	}
 
+	// Vérifie si le client est majeur
+	/**
+	 * 
+	 * @param celuiQuiEmbarque
+	 *            : Recois les valeurs du client.
+	 * @return: true si l'age est supperieur a 18 et false sinon.
+	 */
 	boolean estMajeur(Client celuiQuiEmbarque) {
 
-		return false;
+		boolean majeur = false;
+
+		if (celuiQuiEmbarque.getAnneeNaissance() - this.anneeCourante > 18) {
+
+			majeur = false;
+		}
+
+		else {
+			majeur = true;
+
+		}
+
+		return majeur;
 	}
 
 	boolean peutPayer(Client celuiQuiEmbarque) {
