@@ -2,6 +2,14 @@ package client;
 
 //Jean-Luc Manseau et Paul Champagne
 
+//declaration variable
+
+
+/**
+ * 
+ * @author Jean-Luc Manseau
+ * @version 1.0.0
+ */
 public class Client {
 	private double argent;
 	private String nom;
@@ -38,7 +46,7 @@ public class Client {
 		return distanceSouhaitee;
 	}
 
-	public void setDistancesouhaitee(double p_distanceSouhaitee) {
+	public void setDistanceSouhaitee(double p_distanceSouhaitee) {
 		distanceSouhaitee = p_distanceSouhaitee;
 	}
 
@@ -50,23 +58,33 @@ public class Client {
 	public double getMoisNaissance() {
 		return moisNaissance;
 	}
-
+	
+	// constructeur
 	public Client(int p_montantInitial, double p_distanceSouhaitee,
 			String p_nom, classeConfortSouhaitee p_ClasseConfort) {
 		argent = p_montantInitial;
 		distanceSouhaitee = p_distanceSouhaitee;
 		nom = p_nom;
-		p_ClasseConfort = ClasseConfort;
+		ClasseConfort = p_ClasseConfort;
 		jourNaissance = 24;
 		moisNaissance = 12;
 		anneeNaissance = 1996;
 		
 		
 	}
+	// change la date d'anniversaire des clients
+		public void changeAnniversaire(int annee, int jour, int mois) {
+			anneeNaissance = annee;
+			jourNaissance = jour;
+			moisNaissance = mois;
+		}
 
-	public void changeAnniversaire(int annee, int jour, int mois) {
-		;
-	}
+		/**
+		 * 
+		 * @param distance
+		 * @return Le moment out le client a parcourue la distance qu'il souhaitait
+		 *         parcourir.
+		 */
 
 	public boolean doitDebarquer(float distance) {
 		boolean reponse = false;
@@ -75,13 +93,27 @@ public class Client {
 		}
 		return reponse;
 	}
+	/*
+	 * le client paye le taxi donc doit retourner l'argent qu'il paye que la
+	 * classe Taxi pourra venir chercher l'argent ne peut pas dépasser ce que le
+	 * client possède si le montant a payer est plus grand que ce que le client
+	 * a le client paye tout ce qu'il a mais pas plus
+	 */
 
 	public float payeMontant(float Montant) {
+		float montantPayer = Montant;
+		if (Montant <= argent) {
+			Montant = montantPayer;
+		}
+		if (Montant > argent) {
+			montantPayer = (float) argent;
+		}
 
+		return montantPayer;
 	}
 
 	public String toString() {
-		return nom + "possede" + getArgent() + "a parcouru"
+		return nom + " possede " + getArgent() + " et a parcouru "
 				+ getDistanceParcourue();
 	}
 

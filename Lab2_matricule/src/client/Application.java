@@ -1,8 +1,9 @@
 package client;
 import java.util.Scanner;
 
-import taxi.ClasseConfort;
-import taxi.Taxi;
+import client.Client.classeConfortSouhaitee;
+
+import client.Taxi;
 
 
 /**
@@ -13,19 +14,20 @@ import taxi.Taxi;
  * 
  *
  */
+
 public class Application {
 	public static void main(String[] args) {
 		Scanner entree = new Scanner(System.in);
 		Taxi taxi1 = new Taxi("Capitaine flamme");
 		Taxi taxi2 = new Taxi("Youpi");
 		Taxi taxi3= new Taxi("Biz");
-	
-		Client precieuxMonsieur = new Client(100, 7, "Zoro", ClasseConfort.LUXE);
-		Client clientGratteux = new Client(30, 34, "Woody", ClasseConfort.PROMO);
-		Client jeuneHomme = new Client(200, 39, "Gasper", ClasseConfort.LOCAL);
-		Client tresJeuneHomme = new Client(200, 12, "Yagourt", ClasseConfort.TOURISTIQUE);
-		Client richeHommeAffaire = new Client(1500, 80, "Goldorak", ClasseConfort.AFFAIRE);
-		Client retardataire = new Client(200, 45, "Babar", ClasseConfort.AFFAIRE);
+		
+		Client precieuxMonsieur = new Client(100, 7, "Zoro", classeConfortSouhaitee.LUXE);
+		Client clientGratteux = new Client(30, 34, "Woody", classeConfortSouhaitee.PROMO);
+		Client jeuneHomme = new Client(200, 39, "Gasper", classeConfortSouhaitee.LOCAL);
+		Client tresJeuneHomme = new Client(200, 12, "Yagourt", classeConfortSouhaitee.TOURISTIQUE);
+		Client richeHommeAffaire = new Client(1500, 80, "Goldorak", classeConfortSouhaitee.AFFAIRE);
+		Client retardataire = new Client(200, 45, "Babar", classeConfortSouhaitee.AFFAIRE);
 		
 		jeuneHomme.changeAnniversaire(1996, 25, 12);
 		tresJeuneHomme.changeAnniversaire(1997, 3, 1);

@@ -1,5 +1,7 @@
 package client;
 
+import client.Client.classeConfortSouhaitee;
+
 //Paul Champagne
 //Jean-Luc Manseau
 
@@ -77,22 +79,25 @@ public class Taxi {
 		boolean peutEmbarquer = false;
 
 		if (this.place1 == null) {
-
-			peutEmbarquer = true;
-			this.place1 = celuiQuiEmbarque;
+			if (estMajeur(celuiQuiEmbarque) == true) {
+				if (peutPayer(celuiQuiEmbarque) == true) {
+					peutEmbarquer = true;
+					this.place1 = celuiQuiEmbarque;
+				}
+			}
 		}
 
 		else {
 
 			if (this.place2 == null) {
-				peutEmbarquer = true;
-				this.place2 = celuiQuiEmbarque;
+				if (estMajeur(celuiQuiEmbarque) == true) {
+					if (peutPayer(celuiQuiEmbarque) == true) {
+						peutEmbarquer = true;
+						this.place2 = celuiQuiEmbarque;
+					}
+				}
 			}
-
-			peutEmbarquer = false;
-
 		}
-
 		return peutEmbarquer;
 	}
 
@@ -100,8 +105,12 @@ public class Taxi {
 
 	}
 
-	void changeDateCourante(int p_JourCourant, int p_MoisCourante,
+	void changeDateCourante(int p_JourCourant, int p_MoisCourant,
 			int p_AnneeCourante) {
+
+		anneeCourante = p_AnneeCourante;
+		moisCourant = p_MoisCourant;
+		jourCourant = p_JourCourant;
 
 	}
 
@@ -120,14 +129,35 @@ public class Taxi {
 
 		boolean majeur = false;
 
-		if (celuiQuiEmbarque.getAnneeNaissance() - this.anneeCourante > 18) {
-
-			majeur = false;
-		}
-
-		else {
+		if (this.anneeCourante - celuiQuiEmbarque.getAnneeNaissance() > 18) {
 			majeur = true;
+		} else {
+			if (this.anneeCourante - celuiQuiEmbarque.getAnneeNaissance() < 18) {
+				majeur = false;
+			} else {
+				if (this.anneeCourante - celuiQuiEmbarque.getAnneeNaissance() == 18) {
+					if (this.moisCourant < celuiQuiEmbarque.getMoisNaissance()) {
+						majeur = false;
+					} else {
+						if (this.moisCourant > celuiQuiEmbarque
+								.getMoisNaissance()) {
+							majeur = true;
+						} else {
+							if (this.moisCourant == celuiQuiEmbarque
+									.getMoisNaissance()) {
+								if (this.jourCourant < celuiQuiEmbarque
+										.getJourNaissance()) {
+									majeur = false;
+								} else {
+									majeur = true;
+								}
 
+							}
+						}
+					}
+				}
+
+			}
 		}
 
 		return majeur;
@@ -135,7 +165,63 @@ public class Taxi {
 
 	boolean peutPayer(Client celuiQuiEmbarque) {
 
-		return false;
+		boolean payer = false;
+
+		if (celuiQuiEmbarque.getArgent() - calculClasse(celuiQuiEmbarque) < 0)
+			payer = false;
+		else {
+
+			payer = true;
+
+		}
+		return payer;
+	}
+
+	private double calculClasse(Client celuiQuiEmbarque) {
+
+		double montant = 0;
+		double distance = celuiQuiEmbarque.getDistanceSouhaitee();
+
+		if (celuiQuiEmbarque.getClasseConfortSouhaitee() == classeConfortSouhaitee.AFFAIRE) {
+
+			montant = distance * REVENU_PAR_KILOMETRE_AFFAIRE;
+		} else {
+			if (celuiQuiEmbarque.getClasseConfortSouhaitee() == classeConfortSouhaitee.LOCAL) {
+
+				montant = distance * REVENU_PAR_KILOMETRE_LOCAL;
+			}
+
+			else {
+				if (celuiQuiEmbarque.getClasseConfortSouhaitee() == classeConfortSouhaitee.TOURISTIQUE) {
+
+					montant = distance * REVENU_PAR_KILOMETRE_TOURISTIQUE;
+				}
+
+				else {
+					if (celuiQuiEmbarque.getClasseConfortSouhaitee() == classeConfortSouhaitee.PROMO) {
+
+						montant = distance * REVENU_PAR_KILOMETRE_PROMO;
+					}
+
+					else {
+						if (celuiQuiEmbarque.getClasseConfortSouhaitee() == classeConfortSouhaitee.LUXE) {
+
+							montant = distance * REVENU_PAR_KILOMETRE_LUXE;
+						}
+					}
+				}
+			}
+		}
+
+		return montant;
+	}
+
+	public String toString() {
+
+		return "Le taxi " + nom + " a gagné: " + montantGagne
+				+ " en parcourant: " + distanceParcourueTotale
+				+ ". Sont à bord: " + place1 + " et " + place2;
+
 	}
 
 }
