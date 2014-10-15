@@ -1,9 +1,9 @@
 package alimentation;
 
-/** 
- * Classe BoiteALunch
- * Cette classe permet de contenir des aliments.
- * Une boîte à lunch peut contenir jusqu'à 4 aliments.
+/**
+ * Classe BoiteALunch Cette classe permet de contenir des aliments. Une boîte à
+ * lunch peut contenir jusqu'à 4 aliments.
+ * 
  * @author jerome.blais-morin
  * @version 1.0
  *
@@ -16,18 +16,20 @@ public class BoiteALunch {
 
 	// On considère qu'un boîte a lunch devrait contenir 30% de l'apport
 	// quoditien en aliments.
-	public final static double proportion_apport_quotidien = 0.30;
+	public final static double PROPORTION_APPORT_QUOTIDIEN = 0.30;
 
 	public BoiteALunch() {
-		aliment1 = 0;
-		aliment2 = 0;
-		aliment3 = 0;
+		aliment1 = null;
+		aliment2 = null;
+		aliment3 = null;
 		aliment4 = null;
 	}
 
 	/**
 	 * Ajoute un aliment dans la boîte a lunch s'il reste de la place.
-	 * @param unAliment L'aliment à ajouter
+	 * 
+	 * @param unAliment
+	 *            L'aliment à ajouter
 	 * @return true si l'ajout a réussi. false s'il a échoué.
 	 */
 	public boolean ajouter(Aliment unAliment) {
@@ -53,17 +55,20 @@ public class BoiteALunch {
 	public boolean enlever(TypeAliment unTypeAliment) {
 
 		boolean retraitReussi = false;
-		
+
 		if (aliment1 != null && aliment1.getTypeAliment() == unTypeAliment) {
 			aliment1 = null;
 			retraitReussi = true;
-		} else if (aliment2 != null && aliment2.getTypeAliment() == unTypeAliment) {
+		} else if (aliment2 != null
+				&& aliment2.getTypeAliment() == unTypeAliment) {
 			aliment2 = null;
 			retraitReussi = true;
-		} else if (aliment3 != null && aliment3.getTypeAliment() == unTypeAliment) {
+		} else if (aliment3 != null
+				&& aliment3.getTypeAliment() == unTypeAliment) {
 			aliment3 = null;
 			retraitReussi = true;
-		} else if (aliment4 != null && aliment4.getTypeAliment() == unTypeAliment) {
+		} else if (aliment4 != null
+				&& aliment4.getTypeAliment() == unTypeAliment) {
 			aliment4 = null;
 			retraitReussi = true;
 		}
@@ -72,36 +77,36 @@ public class BoiteALunch {
 	}
 
 	public boolean contient(TypeAliment unTypeAliment) {
-		
-		boolean Contient = false; 
-		
-		if (aliment1.getTypeAliment() == unTypeAliment) {		
+
+		boolean Contient = false;
+
+		if (aliment1.getTypeAliment() == unTypeAliment) {
 			Contient = true;
-		} else if (aliment2.getTypeAliment() == unTypeAliment) {			
+		} else if (aliment2.getTypeAliment() == unTypeAliment) {
 			Contient = true;
-		} else if (aliment3.getTypeAliment() == unTypeAliment) {			
+		} else if (aliment3.getTypeAliment() == unTypeAliment) {
 			Contient = true;
-		} else if (aliment4.getTypeAliment() == unTypeAliment) {			
+		} else if (aliment4.getTypeAliment() == unTypeAliment) {
 			Contient = true;
 		}
-				
+		return Contient;
 	}
-	
+
 	public double getNiveau(InfoNutritive info) {
 
 		double niveau = 0.0;
 
 		switch (info) {
 		case GLUCIDE:
-			niveau = getTotalGlucide();			
+			niveau = getTotalGlucide();
 		case LIPIDE:
-			niveau = getTotalLipide();			
+			niveau = getTotalLipide();
 		case PROTEINE:
-			niveau = getTotalProteine();			
+			niveau = getTotalProteine();
 		case SODIUM:
-			niveau = getTotalSodium();			
+			niveau = getTotalSodium();
 		case CALORIES:
-			niveau = getTotalCalories();			
+			niveau = getTotalCalories();
 		}
 
 		return niveau;
@@ -112,12 +117,15 @@ public class BoiteALunch {
 		double total = 0.0;
 
 		if (aliment1 != null)
-			total += aliment1.getNbGrammesGlucide();		
-		else if (aliment2 != null)
+			total += aliment1.getNbGrammesGlucide();
+
+		if (aliment2 != null)
 			total += aliment2.getNbGrammesGlucide();
-		else if (aliment3 != null)
+
+		if (aliment3 != null)
 			total += aliment3.getNbGrammesGlucide();
-		else if (aliment4 != null)
+
+		if (aliment4 != null)
 			total += aliment4.getNbGrammesGlucide();
 
 		return total;
@@ -199,15 +207,24 @@ public class BoiteALunch {
 		return total;
 	}
 
-	public boolean EstSante() {
+	public boolean estSante() {
 
 		boolean estSante = false;
 
-		if (getTotalProteine() >= proportion_apport_quotidien * Aliment.VALEUR_QUOTIDIENNE_PROTEINE	&& 
-			getTotalCalories() <= proportion_apport_quotidien * Aliment.VALEUR_QUOTIDIENNE_CALORIE &&
-			getTotalSodium() <= proportion_apport_quotidien * Aliment.VALEUR_QUOTIDIENNE_SODIUM &&
-			(contient(TypeAliment.FRUIT) || contient(TypeAliment.LEGUME)) ||
-			contient(TypeAliment.REPAS_PRINCIPAL))
+		if (getTotalProteine() >= PROPORTION_APPORT_QUOTIDIEN
+				* Aliment.VALEUR_QUOTIDIENNE_PROTEINE
+				&&
+
+				getTotalCalories() <= PROPORTION_APPORT_QUOTIDIEN
+						* Aliment.VALEUR_QUOTIDIENNE_CALORIE
+				&&
+
+				getTotalSodium() <= PROPORTION_APPORT_QUOTIDIEN
+						* Aliment.VALEUR_QUOTIDIENNE_SODIUM
+				&&
+
+				(contient(TypeAliment.FRUIT) || contient(TypeAliment.LEGUME))
+				|| contient(TypeAliment.REPAS_PRINCIPAL))
 			estSante = true;
 
 		return estSante;
@@ -236,14 +253,18 @@ public class BoiteALunch {
 
 		int i = 0;
 		while (i < 10) {
-			if (numerateur / denumerateur >= i / 10.0)
+			if (numerateur / denumerateur >= i / 10.0) {
+				i = i + 1;
 				System.out.print("*");
+			}
+
 			else
-				System.out.print(".");								
+				System.out.print(".");
+				i = i + 1;
 		}
 
 		// Affichage en nombre et changement de ligne
-		System.out.println("  " + (numerateur / denumerateur) * 100.0 + "%"); 
+		System.out.println("  " + (numerateur / denumerateur) * 100.0 + "%");
 	}
 
 	public String toString() {
@@ -260,19 +281,19 @@ public class BoiteALunch {
 			reponse += aliment2.toString();
 			reponse += "\n";
 		}
-		
+
 		if (aliment3 != null) {
 			reponse += "\t";
 			reponse += aliment3.toString();
 			reponse += "\n";
 		}
-		
+
 		if (aliment4 != null) {
 			reponse += "\t";
 			reponse += aliment4.toString();
 			reponse += "\n";
 		}
-		
+
 		return reponse;
 	}
 

@@ -116,6 +116,114 @@ public class Taxi {
 
 	void roule(int kilometre) {
 
+		distanceParcourueTotale = distanceParcourueTotale + kilometre;
+		distanceDepuisDepense = distanceDepuisDepense + kilometre;
+
+		if (place1 != null) {
+
+			if (place1.doitDebarquer(kilometre) == true) {
+				place1.payeMontant((float) doisPayer(kilometre));
+				place1 = null;
+				distanceDepuisDepense = 0;
+			} else {
+
+				place1.payeMontant((float) doisPayer(kilometre));
+			}
+		}
+
+		if (place2 != null) {
+
+			if (place2.doitDebarquer(kilometre) == true) {
+				place2.payeMontant((float) doisPayer(kilometre));
+				place2 = null;
+				distanceDepuisDepense = 0;
+			} else {
+
+				place2.payeMontant((float) doisPayer(kilometre));
+			}
+		}
+	}
+
+	private double doisPayer(double kilometre) {
+
+		double montantPayer = 0;
+
+		if (place1 != null) {
+
+			if (place1.getClasseConfortSouhaitee() == classeConfortSouhaitee.AFFAIRE) {
+
+				montantPayer = kilometre * REVENU_PAR_KILOMETRE_AFFAIRE;
+			} else {
+				if (place1.getClasseConfortSouhaitee() == classeConfortSouhaitee.LOCAL) {
+
+					montantPayer = kilometre * REVENU_PAR_KILOMETRE_LOCAL;
+				}
+
+				else {
+					if (place1.getClasseConfortSouhaitee() == classeConfortSouhaitee.TOURISTIQUE) {
+
+						montantPayer = kilometre
+								* REVENU_PAR_KILOMETRE_TOURISTIQUE;
+					}
+
+					else {
+						if (place1.getClasseConfortSouhaitee() == classeConfortSouhaitee.PROMO) {
+
+							montantPayer = kilometre
+									* REVENU_PAR_KILOMETRE_PROMO;
+						}
+
+						else {
+							if (place1.getClasseConfortSouhaitee() == classeConfortSouhaitee.LUXE) {
+
+								montantPayer = kilometre
+										* REVENU_PAR_KILOMETRE_LUXE;
+							}
+						}
+					}
+				}
+			}
+		} else {
+
+			if (place2 != null) {
+
+				if (place2.getClasseConfortSouhaitee() == classeConfortSouhaitee.AFFAIRE) {
+
+					montantPayer = kilometre * REVENU_PAR_KILOMETRE_AFFAIRE;
+				} else {
+					if (place2.getClasseConfortSouhaitee() == classeConfortSouhaitee.LOCAL) {
+
+						montantPayer = kilometre * REVENU_PAR_KILOMETRE_LOCAL;
+					}
+
+					else {
+						if (place2.getClasseConfortSouhaitee() == classeConfortSouhaitee.TOURISTIQUE) {
+
+							montantPayer = kilometre
+									* REVENU_PAR_KILOMETRE_TOURISTIQUE;
+						}
+
+						else {
+							if (place2.getClasseConfortSouhaitee() == classeConfortSouhaitee.PROMO) {
+
+								montantPayer = kilometre
+										* REVENU_PAR_KILOMETRE_PROMO;
+							}
+
+							else {
+								if (place2.getClasseConfortSouhaitee() == classeConfortSouhaitee.LUXE) {
+
+									montantPayer = kilometre
+											* REVENU_PAR_KILOMETRE_LUXE;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return montantPayer;
 	}
 
 	// Vérifie si le client est majeur
@@ -156,7 +264,6 @@ public class Taxi {
 						}
 					}
 				}
-
 			}
 		}
 

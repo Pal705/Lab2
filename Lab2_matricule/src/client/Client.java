@@ -4,7 +4,6 @@ package client;
 
 //declaration variable
 
-
 /**
  * 
  * @author Jean-Luc Manseau
@@ -58,7 +57,7 @@ public class Client {
 	public double getMoisNaissance() {
 		return moisNaissance;
 	}
-	
+
 	// constructeur
 	public Client(int p_montantInitial, double p_distanceSouhaitee,
 			String p_nom, classeConfortSouhaitee p_ClasseConfort) {
@@ -69,46 +68,63 @@ public class Client {
 		jourNaissance = 24;
 		moisNaissance = 12;
 		anneeNaissance = 1996;
-		
-		
-	}
-	// change la date d'anniversaire des clients
-		public void changeAnniversaire(int annee, int jour, int mois) {
-			anneeNaissance = annee;
-			jourNaissance = jour;
-			moisNaissance = mois;
-		}
 
-		/**
-		 * 
-		 * @param distance
-		 * @return Le moment out le client a parcourue la distance qu'il souhaitait
-		 *         parcourir.
-		 */
+	}
+
+	// change la date d'anniversaire des clients
+	public void changeAnniversaire(int annee, int jour, int mois) {
+		anneeNaissance = annee;
+		jourNaissance = jour;
+		moisNaissance = mois;
+	}
+
+	/**
+	 * 
+	 * @param distance
+	 * @return Le moment ou le client a parcourue la distance qu'il souhaitait
+	 *         parcourir.
+	 */
 
 	public boolean doitDebarquer(float distance) {
+
 		boolean reponse = false;
-		if (getDistanceParcourue() == getDistanceSouhaitee()) {
+		distanceParcourue = (float) (distance + distanceParcourue);
+
+		if (getDistanceParcourue() >= getDistanceSouhaitee()) {
 			reponse = true;
+
 		}
+
 		return reponse;
 	}
+
 	/*
 	 * le client paye le taxi donc doit retourner l'argent qu'il paye que la
 	 * classe Taxi pourra venir chercher l'argent ne peut pas dépasser ce que le
 	 * client possède si le montant a payer est plus grand que ce que le client
-	 * a le client paye tout ce qu'il a mais pas plus
+	 * a le client paye tout ce qu'il a mais pas plus (retire l'argent payer)
+	 */
+	
+	/**
+	 * 
+	 * @param Montant
+	 * @return le montant que le client a payer et soustrait celui-ci a son
+	 *         total d'argent
 	 */
 
 	public float payeMontant(float Montant) {
-		float montantPayer = Montant;
-		if (Montant <= argent) {
-			Montant = montantPayer;
-		}
-		if (Montant > argent) {
-			montantPayer = (float) argent;
-		}
 
+		float montantPayer = Montant;
+
+		if (Montant <= argent) {
+
+			argent = argent - Montant;
+		} else {
+			if (Montant > argent) {
+				montantPayer = (float) argent;
+				argent = 0;
+			}
+		}
 		return montantPayer;
 	}
 
@@ -132,7 +148,7 @@ public class Client {
 		}
 		return reponse;
 	}
-	
+
 	private boolean verificationAnneeNaissance() {
 		boolean reponse = false;
 		if (anneeNaissance > 0) {
