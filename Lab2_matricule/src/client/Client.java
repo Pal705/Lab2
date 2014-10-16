@@ -105,7 +105,7 @@ public class Client {
 	 * client possède si le montant a payer est plus grand que ce que le client
 	 * a le client paye tout ce qu'il a mais pas plus (retire l'argent payer)
 	 */
-	
+
 	/**
 	 * 
 	 * @param Montant

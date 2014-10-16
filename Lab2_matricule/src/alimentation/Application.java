@@ -8,8 +8,8 @@ package alimentation;
  * @version 1.0
  *
  */
-//Paul Champagne
-//Jean-Luc Manseau
+// Paul Champagne
+// Jean-Luc Manseau
 public class Application {
 
 	public static void main(String[] args) {
@@ -67,9 +67,7 @@ public class Application {
 		boite2.ajouter(sandwichDinde);
 		boite2.ajouter(mousseChocolat);
 		boite2.ajouter(mousseChocolat);
-		
-		
-		
+
 		if (boite2.contient(TypeAliment.JUS))
 
 			System.out.println("La boite à lunch 2 contient un jus.");

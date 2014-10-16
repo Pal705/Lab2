@@ -8,8 +8,8 @@ package alimentation;
  * @version 1.0
  *
  */
-//Paul Champagne
-//Jean-Luc Manseau
+// Paul Champagne
+// Jean-Luc Manseau
 public class Aliment {
 	private double nbGrammesGlucide;
 	private double nbGrammesLipide;

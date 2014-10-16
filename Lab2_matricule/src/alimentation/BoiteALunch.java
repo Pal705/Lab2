@@ -8,8 +8,8 @@ package alimentation;
  * @version 1.0
  *
  */
-//Paul Champagne
-//Jean-Luc Manseau
+// Paul Champagne
+// Jean-Luc Manseau
 public class BoiteALunch {
 	private Aliment aliment1;
 	private Aliment aliment2;
@@ -262,7 +262,7 @@ public class BoiteALunch {
 
 			else
 				System.out.print(".");
-				i = i + 1;
+			i = i + 1;
 		}
 
 		// Affichage en nombre et changement de ligne

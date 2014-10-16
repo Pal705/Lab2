@@ -7,6 +7,7 @@ import client.Client.classeConfortSouhaitee;
 import client.Taxi;
 //Paul Champagne
 //Jean-Luc Manseau
+
 /**
  * Description de la classe
  * 
