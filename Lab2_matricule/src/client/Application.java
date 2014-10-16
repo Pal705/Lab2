@@ -5,12 +5,13 @@ import java.util.Scanner;
 import client.Client.classeConfortSouhaitee;
 
 import client.Taxi;
-
+//Paul Champagne
+//Jean-Luc Manseau
 /**
  * Description de la classe
  * 
  * @author Martin Simoneau
- * @version
+ * @version 1.0.0
  * 
  *
  */
@@ -141,6 +142,44 @@ public class Application {
 		// SCENARIO 2__________________________________________________________
 
 		// À faire
+
+		System.out.println("Entrer le nom du taxi");
+		String nomTaxi = entree.next();
+
+		Taxi taxi4 = new Taxi(nomTaxi);
+
+		boolean reponseUtilisateur = false;
+
+		do {
+
+			System.out.println("Entrer le nom du client");
+			String nomClient = entree.next();
+
+			System.out.println("Entrer l'avoir du client (nombre entier)");
+			int avoir = entree.nextInt();
+
+			System.out
+					.println("Entrer la distance souhaitée initiale du client (nombre entier)");
+			int distanceInitialSouhaitee = entree.nextInt();
+
+			Client clientCapricieux = new Client(avoir,
+					distanceInitialSouhaitee, nomClient,
+					classeConfortSouhaitee.LOCAL);
+			taxi4.embarque(clientCapricieux);
+
+			System.out.println("Entrer la distance à parcourir par le taxi");
+			int distanceParcourir = entree.nextInt();
+
+			taxi4.roule(distanceParcourir);
+
+			System.out.println("Voulez-vous continuer ?");
+			String reponse = entree.next();
+
+			if (reponse == "true")
+
+				reponseUtilisateur = true;
+
+		} while (reponseUtilisateur == true);
 
 	}
 }

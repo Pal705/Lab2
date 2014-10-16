@@ -64,17 +64,22 @@ public class Taxi {
 		return montantGagne;
 	}
 
-	/*
-	 * Reçoit un objet de type client représentant un client qui désire prendre
-	 * le taxi. Si le client est majeur et s’il a assez d’argent pour payer, le
-	 * taxi vérifie s’il lui reste une place disponible. Si la place1 est
-	 * disponible, le nouveau client y prend place (affectation de cet attribut
-	 * au nouveau client). Sinon si la seconde place est disponible, le nouveau
-	 * client y prend place. Évidemment si aucune place n’est disponible le
-	 * client ne peut pas embarquer.
+	/**
+	 * 
+	 * @param celuiQuiEmbarque
+	 *            Reçoit un objet de type client représentant un client qui
+	 *            désire prendre le taxi. Si le client est majeur et s’il a
+	 *            assez d’argent pour payer, le taxi vérifie s’il lui reste une
+	 *            place disponible. Si la place1 est disponible, le nouveau
+	 *            client y prend place (affectation de cet attribut au nouveau
+	 *            client). Sinon si la seconde place est disponible, le nouveau
+	 *            client y prend place. Évidemment si aucune place n’est
+	 *            disponible le client ne peut pas embarquer.
+	 * 
+	 * @return Retourne true si tout les conditions sont true et met le client a
+	 *         sa place respective.
 	 */
-
-	boolean embarque(Client celuiQuiEmbarque) {
+	public boolean embarque(Client celuiQuiEmbarque) {
 
 		boolean peutEmbarquer = false;
 
@@ -101,11 +106,26 @@ public class Taxi {
 		return peutEmbarquer;
 	}
 
-	void appliqueDepense() {
+	/**
+	 * Méthode servant a payer les frais pour son exploitation. Elle prend la
+	 * distance parcourue total par le taxi et l'additionne avec les constantes.
+	 * Le montant obtenue est la dépense pour la distance éffectuer au total par
+	 * le taxi. Puis la méthode appelle la méthode doisPayer en lui envoyant la
+	 * distance en cours puis la soustrait au dépense ce qui donne le montant
+	 * gagné par le taxi.
+	 */
+	public void appliqueDepense() {
+
+		double depense;
+
+		depense = distanceParcourueTotale / 100 * CONSOMMATION / 100
+				* COUT_PAR_LITRE;
+		montantGagne = montantGagne + doisPayer(distanceDepuisDepense)
+				- depense;
 
 	}
 
-	void changeDateCourante(int p_JourCourant, int p_MoisCourant,
+	public void changeDateCourante(int p_JourCourant, int p_MoisCourant,
 			int p_AnneeCourante) {
 
 		anneeCourante = p_AnneeCourante;
@@ -114,7 +134,18 @@ public class Taxi {
 
 	}
 
-	void roule(int kilometre) {
+	/**
+	 * 
+	 * @param kilometre
+	 *            Simule l'avancement d'un taxi. À chaque appel on reçoit un
+	 *            nouveau kilométrage qui a été parcouru par le taxi. Elle
+	 *            averti chaque passager de l'avancement du taxi et les fait
+	 *            descendre si la distance voulu du client est atteinte. Elle
+	 *            prend également de l'argent au client à chaque fois que la
+	 *            méthode est appellée.
+	 */
+
+	public void roule(int kilometre) {
 
 		distanceParcourueTotale = distanceParcourueTotale + kilometre;
 		distanceDepuisDepense = distanceDepuisDepense + kilometre;
@@ -123,11 +154,14 @@ public class Taxi {
 
 			if (place1.doitDebarquer(kilometre) == true) {
 				place1.payeMontant((float) doisPayer(kilometre));
+				appliqueDepense();
 				place1 = null;
+
 				distanceDepuisDepense = 0;
 			} else {
 
 				place1.payeMontant((float) doisPayer(kilometre));
+				appliqueDepense();
 			}
 		}
 
@@ -135,11 +169,13 @@ public class Taxi {
 
 			if (place2.doitDebarquer(kilometre) == true) {
 				place2.payeMontant((float) doisPayer(kilometre));
+				appliqueDepense();
 				place2 = null;
 				distanceDepuisDepense = 0;
 			} else {
 
 				place2.payeMontant((float) doisPayer(kilometre));
+				appliqueDepense();
 			}
 		}
 	}
@@ -230,10 +266,11 @@ public class Taxi {
 	/**
 	 * 
 	 * @param celuiQuiEmbarque
-	 *            : Recois les valeurs du client.
-	 * @return: true si l'age est supperieur a 18 et false sinon.
+	 *            Recois les valeurs du client pour vérifier si le client est
+	 *            majeur.
+	 * @return true si l'age est supperieur a 18 et false sinon.
 	 */
-	boolean estMajeur(Client celuiQuiEmbarque) {
+	public boolean estMajeur(Client celuiQuiEmbarque) {
 
 		boolean majeur = false;
 
@@ -270,7 +307,14 @@ public class Taxi {
 		return majeur;
 	}
 
-	boolean peutPayer(Client celuiQuiEmbarque) {
+	/**
+	 * 
+	 * @param celuiQuiEmbarque
+	 *            Vérifie si le client qui désire embarquer a assez d'argent
+	 *            pour faire la distance qu'il souhaite parcourir.
+	 * @return Retourne true si le client a assez d'argent, false sinon.
+	 */
+	public boolean peutPayer(Client celuiQuiEmbarque) {
 
 		boolean payer = false;
 
@@ -284,6 +328,13 @@ public class Taxi {
 		return payer;
 	}
 
+	/*
+	 * 
+	 * @param celuiQuiEmbarque
+	 * 
+	 * @return Retourne le montant total que coutera la distance souhaiter du
+	 * client dépendant de la classe choisi.
+	 */
 	private double calculClasse(Client celuiQuiEmbarque) {
 
 		double montant = 0;

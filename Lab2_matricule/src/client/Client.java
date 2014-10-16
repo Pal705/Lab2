@@ -1,6 +1,7 @@
 package client;
 
-//Jean-Luc Manseau et Paul Champagne
+//Paul Champagne
+//Jean-Luc Manseau
 
 //declaration variable
 
